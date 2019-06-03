@@ -31,12 +31,13 @@ struct item {
 	char *text;
 	struct item *left, *right;
 	int out;
+	int distance;
 };
 
 static char text[BUFSIZ] = "";
 static char *embed;
 static int bh, mw, mh;
-static int inputw = 0, promptw;
+static int inputw = 0, promptw, passwd = 0;
 static int lrpad; /* sum of left and right padding */
 static size_t cursor;
 static struct item *items = NULL;
@@ -131,6 +132,7 @@ drawmenu(void)
 	unsigned int curpos;
 	struct item *item;
 	int x = 0, y = 0, w;
+	char *censort;
 
 	drw_setscheme(drw, scheme[SchemeNorm]);
 	drw_rect(drw, 0, 0, mw, mh, 1, 1);
@@ -142,7 +144,12 @@ drawmenu(void)
 	/* draw input field */
 	w = (lines > 0 || !matches) ? mw - x : inputw;
 	drw_setscheme(drw, scheme[SchemeNorm]);
-	drw_text(drw, x, 0, w, bh, lrpad / 2, text, 0);
+	if (passwd) {
+	        censort = ecalloc(1, sizeof(text));
+		memset(censort, '.', strlen(text));
+		drw_text(drw, x, 0, w, bh, lrpad / 2, censort, 0);
+		free(censort);
+	} else drw_text(drw, x, 0, w, bh, lrpad / 2, text, 0);
 
 	drw_font_getexts(drw->fonts, text, cursor, &curpos, NULL);
 	if ((curpos += lrpad / 2 - 1) < w) {
@@ -263,6 +270,84 @@ match(void)
 	calcoffsets();
 }
 
+static int
+compare_distance(const void *a, const void *b)
+{
+	struct item const *da = *(struct item **) a;
+	struct item const *db = *(struct item **) b;
+
+	if (!db)
+		return 1;
+	if (!da)
+		return -1;
+	return da->distance - db->distance;
+}
+
+static void
+fuzzymatch(void)
+{
+	struct item *item;
+	struct item **fuzzymatches = NULL;
+	char c;
+	int number_of_matches = 0, i, pidx, sidx, eidx;
+	int text_len = strlen(text), itext_len;
+
+	matches = matchend = NULL;
+
+	/* walk through all items */
+	for (item = items; item && item->text; item++) {
+		if (text_len) {
+			itext_len = strlen(item->text);
+			pidx = 0;
+			sidx = eidx = -1;
+			/* walk through item text */
+			for (i = 0; i < itext_len && (c = item->text[i]); i++) {
+				/* fuzzy match pattern */
+				if (text[pidx] == c) {
+					if (sidx == -1)
+						sidx = i;
+					pidx++;
+					if (pidx == text_len) {
+						eidx = i;
+						break;
+					}
+				}
+			}
+			/* build list of matches */
+			if (eidx != -1) {
+				/* compute distance */
+				/* factor in 30% of sidx and distance between eidx and total
+				 * text length .. let's see how it works */
+				item->distance = eidx - sidx + (itext_len - eidx + sidx) / 3;
+				appenditem(item, &matches, &matchend);
+				number_of_matches++;
+			}
+		}
+		else
+			appenditem(item, &matches, &matchend);
+	}
+
+	if (number_of_matches) {
+		/* initialize array with matches */
+		if (!(fuzzymatches = realloc(fuzzymatches, number_of_matches * sizeof(struct item*))))
+			die("cannot realloc %u bytes:", number_of_matches * sizeof(struct item *));
+		for (i = 0, item = matches; item && i < number_of_matches; i++, item = item->right)
+			fuzzymatches[i] = item;
+
+		/* sort matches according to distance */
+		qsort(fuzzymatches, number_of_matches, sizeof(struct item *), compare_distance);
+		/* rebuild list of matches */
+		matches = matchend = NULL;
+		for (i = 0, item = fuzzymatches[0]; i < number_of_matches && item && \
+				item->text; item = fuzzymatches[i], i++)
+			appenditem(item, &matches, &matchend);
+
+		free(fuzzymatches);
+	}
+	curr = sel = matches;
+	calcoffsets();
+}
+
 static void
 insert(const char *str, ssize_t n)
 {
@@ -273,7 +358,7 @@ insert(const char *str, ssize_t n)
 	if (n > 0)
 		memcpy(&text[cursor], str, n);
 	cursor += n;
-	match();
+	fuzzymatch();
 }
 
 static size_t
@@ -334,7 +419,7 @@ keypress(XKeyEvent *ev)
 
 		case XK_k: /* delete right */
 			text[cursor] = '\0';
-			match();
+			fuzzymatch();
 			break;
 		case XK_u: /* delete left */
 			insert(NULL, 0 - cursor);
@@ -486,7 +571,7 @@ keypress(XKeyEvent *ev)
 		strncpy(text, sel->text, sizeof text - 1);
 		text[sizeof text - 1] = '\0';
 		cursor = strlen(text);
-		match();
+		fuzzymatch();
 		break;
 	}
 	drawmenu();
@@ -516,6 +601,11 @@ readstdin(void)
 	char buf[sizeof text], *p;
 	size_t i, imax = 0, size = 0;
 	unsigned int tmpmax = 0;
+
+	if (passwd) {
+	        inputw = lines = 0;
+	        return;
+	}
 
 	/* read each line from stdin and add it to the item list */
 	for (i = 0; fgets(buf, sizeof buf, stdin); i++) {
@@ -640,7 +730,7 @@ setup(void)
 	}
 	promptw = (prompt && *prompt) ? TEXTW(prompt) - lrpad / 4 : 0;
 	inputw = MIN(inputw, mw/3);
-	match();
+	fuzzymatch();
 
 	/* create menu window */
 	swa.override_redirect = True;
@@ -673,7 +763,7 @@ setup(void)
 static void
 usage(void)
 {
-	fputs("usage: dmenu [-bfiv] [-l lines] [-p prompt] [-fn font] [-m monitor]\n"
+	fputs("usage: dmenu [-bfiPv] [-l lines] [-p prompt] [-fn font] [-m monitor]\n"
 	      "             [-nb color] [-nf color] [-sb color] [-sf color] [-w windowid]\n", stderr);
 	exit(1);
 }
@@ -696,7 +786,9 @@ main(int argc, char *argv[])
 		else if (!strcmp(argv[i], "-i")) { /* case-insensitive item matching */
 			fstrncmp = strncasecmp;
 			fstrstr = cistrstr;
-		} else if (i + 1 == argc)
+		} else if (!strcmp(argv[i], "-P"))   /* is the input a password */
+		        passwd = 1;
+		else if (i + 1 == argc)
 			usage();
 		/* these options take one argument */
 		else if (!strcmp(argv[i], "-l"))   /* number of lines in vertical list */
