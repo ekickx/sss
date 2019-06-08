@@ -31,15 +31,15 @@ maximize(int x, int y, int w, int h) {
 
 void
 togglemaximize(const Arg *arg) {
-	maximize(selmon->wx + gapscr, selmon->wy + gapscr, selmon->ww - 2 * gapscr, selmon->wh - 2 * gapscr);
+	maximize(selmon->wx + gapscr, selmon->wy + gapscr, selmon->ww - 2 * gapscr - 2 * borderpx, selmon->wh - 2 * gapscr - 2 * borderpx);
 }
 
 void
 toggleverticalmax(const Arg *arg) {
-	maximize(selmon->sel->x, selmon->wy, selmon->sel->w, selmon->wh - 2 * gapscr);
+	maximize(selmon->sel->x, selmon->wy, selmon->sel->w, selmon->wh - 2 * gapscr - 2 * borderpx);
 }
 
 void
 togglehorizontalmax(const Arg *arg) {
-	maximize(selmon->wx, selmon->sel->y, selmon->ww - 2 * gapscr, selmon->sel->h);
+	maximize(selmon->wx, selmon->sel->y, selmon->ww - 2 * gapscr - 2 * borderpx, selmon->sel->h);
 }

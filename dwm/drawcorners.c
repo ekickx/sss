@@ -2,7 +2,7 @@ void // lalala
 drawroundedcorners(Client *c) {
     // Directly stolen from Mitch Weaver's dwm
     // https://github.com/MitchWeaver/dotfiles/blob/8d76e479715e7fa7b4df153719d3d25144f9f7f2/suckless-tools/dwm/dwm/dwm.c#L938
-    if(round_radius > 0 && c) {
+    if(round_radius >= 0 && c) {
         Window win;
         win = c->win;
         if(!win) return;
