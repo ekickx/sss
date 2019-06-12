@@ -1,14 +1,15 @@
 /* See LICENSE file for copyright and license details. */
 
-/* appearance */
-static const char font[]        = "mononoki Nerd Font:Regular:size=12:antialias=true:autohint=true";
-/* static const char* normbgcolor  = "#BF1B5A"; */
-/* static const char* normfgcolor  = "#cccccc"; */
-/* static const char* selbgcolor   = "#001E3B"; */
-/* static const char* selfgcolor   = "#ffffff"; */
-/* static const char* urgbgcolor   = "#555555"; */
-/* static const char* urgfgcolor   = "#ffffff"; */
+/* ------------ Appearance ------------ */
+
+/* --------------- Font --------------- */
+static const char font[] = "Fira Code:Regular:size=11:antialias=true:autohint=true";
+/* ------------------------------------ */
+
+/* --------------- Theme -------------- */
 #include "/home/ekickx/.cache/wal/colors-wal-tabbed.h"
+/* ------------------------------------ */
+
 static const char before[]      = "<";
 static const char after[]       = ">";
 static const int  tabwidth      = 100;
@@ -17,6 +18,7 @@ static const int barheight      = 35;
 static const Bool urgentswitch  = False;
 static const Bool numberclients = False;
 static const char titletrim[]   = "...";
+/* ------------------------------------ */
 
 /*
  * Where to place a new tab when it is opened. When npisrelative is True,

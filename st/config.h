@@ -1,96 +1,28 @@
-/* See LICENSE file for copyright and license details. */
+/* -------------- Font --------------- */
+/* static char *font = "monospace:pixelsize=13:antialias=true:autohint=true"; */
+static char *font = "Fira Code:Regular:pixelsize=15:antialias=true:autohint=true";
 
-/*
- * appearance
- *
- * font: see http://freedesktop.org/software/fontconfig/fontconfig-user.html
- */
-static char *font ="Fira Code:Regular:pixelsize=15:antialias=true:autohint=true";
 /* Spare fonts */
 static char *font2[] = {
 /*	"Inconsolata for Powerline:pixelsize=12:antialias=true:autohint=true", */
 	"mononoki Nerd Font:Regular:pixelsize=15:antialias=true:autohint=true",
 };
+/* ----------------------------------- */
 
-static int borderpx = 8;
-
-/*
- * What program is execed by st depends of these precedence rules:
- * 1: program passed with -e
- * 2: utmp option
- * 3: SHELL environment variable
- * 4: value of shell in /etc/passwd
- * 5: value of shell in config.h
- */
-static char *shell = "/bin/sh";
-char *utmp = NULL;
-char *stty_args = "stty raw pass8 nl -echo -iexten -cstopb 38400";
-
-/* identification sequence returned in DA and DECID */
-char *vtiden = "\033[?6c";
-
-/* Kerning / character bounding-box multipliers */
-static float cwscale = 1.0;
-static float chscale = 1.0;
-
-/*
- * word delimiter string
- *
- * More advanced example: L" `'\"()[]{}"
- */
-wchar_t *worddelimiters = L" ";
-
-/* selection timeouts (in milliseconds) */
-static unsigned int doubleclicktimeout = 300;
-static unsigned int tripleclicktimeout = 600;
-
-/* alt screens */
-int allowaltscreen = 1;
-
-/* frames per second st should at maximum draw to the screen */
-static unsigned int xfps = 120;
-static unsigned int actionfps = 30;
-
-/*
- * blinking timeout (set to 0 to disable blinking) for the terminal blinking
- * attribute.
- */
-static unsigned int blinktimeout = 800;
-
-/*
- * thickness of underline and bar cursors
- */
-static unsigned int cursorthickness = 2;
-
-/*
- * bell volume. It must be a value between -100 and 100. Use 0 for disabling
- * it
- */
-static int bellvolume = 0;
-
-/* default TERM value */
-char *termname = "st-256color";
-
-/*
- * spaces per tab
- *
- * When you are changing this value, don't forget to adapt the »it« value in
- * the st.info and appropriately install the st.info in the environment where
- * you use this st version.
- *
- *	it#$tabspaces,
- *
- * Secondly make sure your kernel is not expanding tabs. When running `stty
- * -a` »tab0« should appear. You can tell the terminal to not expand tabs by
- *  running following command:
- *
- *	stty tabs
- */
-unsigned int tabspaces = 8;
-
-/* Terminal colors (16 first used in escape sequence) */
+/* -------------- Theme ------------- */
 #include "/home/ekickx/.cache/wal/colors-wal-st.h"
+/* ----------------------------------- */
 
+/* ----- Insternal border/padding ---- */
+static int borderpx = 10;
+
+/* ---- Shell that used when launch `st -e` ---- */
+static char *shell = "/bin/sh";
+/* static char *shell = "/bin/bash"; */
+/* static char *shell = "/bin/dash"; */
+/* ----------------------------------- */
+
+/* ------------- Cursor ------------- */
 /*
  * Default shape of cursor
  * 2: Block ("█")
@@ -100,25 +32,31 @@ unsigned int tabspaces = 8;
  */
 static unsigned int cursorshape = 6;
 
-/*
- * Default columns and rows numbers
- */
+/* thickness of underline and bar cursors */
+static unsigned int cursorthickness = 2;
 
-static unsigned int cols = 88;
-static unsigned int rows = 24;
-
-/*
- * Default colour and shape of the mouse cursor
- */
+/* Default colour and shape of the mouse cursor */
 static unsigned int mouseshape = XC_xterm;
 static unsigned int mousefg = 7;
 static unsigned int mousebg = 0;
+/* --------------------------------- */
 
-/*
- * Color used to display font attributes when fontconfig selected a font which
- * doesn't match the ones requested.
- */
-static unsigned int defaultattr = 11;
+/* Default columns and rows numbers */
+static unsigned int cols = 88;
+static unsigned int rows = 24;
+
+/* Kerning / character bounding-box multipliers */
+static float cwscale = 1.0;
+static float chscale = 1.0;
+
+unsigned int tabspaces = 8;
+
+/* frames per second st should at maximum draw to the screen */
+static unsigned int xfps = 120;
+static unsigned int actionfps = 30;
+
+/* default TERM value */
+char *termname = "st-256color";
 
 /*
  * Internal mouse shortcuts.
@@ -167,6 +105,44 @@ static Shortcut shortcuts[] = {
   { MODKEY,               XK_o,           externalpipe,   {.v = openurlcmd } },
   { MODKEY,               XK_c,           externalpipe,   {.v = copyurlcmd } },
 };
+
+/* ------------ Ignore Below ------------------------------------------ */
+/* alt screens */
+int allowaltscreen = 1;
+
+/* selection timeouts (in milliseconds) */
+static unsigned int doubleclicktimeout = 300;
+static unsigned int tripleclicktimeout = 600;
+
+/*
+ * blinking timeout (set to 0 to disable blinking) for the terminal blinking
+ * attribute.
+ */
+static unsigned int blinktimeout = 800;
+
+/*
+ * bell volume. It must be a value between -100 and 100. Use 0 for disabling
+ * it
+ */
+static int bellvolume = 0;
+
+char *utmp = NULL;
+char *stty_args = "stty raw pass8 nl -echo -iexten -cstopb 38400";
+
+/* identification sequence returned in DA and DECID */
+char *vtiden = "\033[?6c";
+
+/*
+ * word delimiter string
+ * More advanced example: L" `'\"()[]{}"
+ */
+wchar_t *worddelimiters = L" ";
+
+/*
+ * Color used to display font attributes when fontconfig selected a font which
+ * doesn't match the ones requested.
+ */
+static unsigned int defaultattr = 11;
 
 /*
  * Special keys (change & recompile st.info accordingly)
