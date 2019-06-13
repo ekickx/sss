@@ -4,6 +4,8 @@ Collection of modified suckless tools
 
 ## Preview
 
+![5d021beb8763935710](https://i.loli.net/2019/06/13/5d021beb8763935710.png)
+
 ## Features
 
 ### Dwm
@@ -11,6 +13,10 @@ Collection of modified suckless tools
 - Restart dwm build without logout - patch: **restartsig**
 
 - Autostart file - patch: **autostart**
+
+- Round corner - patch: **rounded corner** by  [Mitch Weaver](github.com/MitchWeaver) with some modification
+
+- Set padding to dwmstatus - pacth: **statuspadding**
 
 ### St
 
@@ -28,9 +34,7 @@ Collection of modified suckless tools
 
 - Fuzzymatch - patch: **fuzzymatch**
 
-- Replace output with dots for password - patch: **password**
-
-
+- Set position and size - patch: **xyw**, **height**
 
 ### Tabbed
 
