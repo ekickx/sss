@@ -1,6 +1,6 @@
 /* See LICENSE file for copyright and license details. */
 
-/* appearance */
+/* ------------ Appearance ---------- */
 static const unsigned int borderpx  = 0;        /* border pixel of windows */
 static const unsigned int gapscr    = 0;       /* gap between window and screen when maximized */
 static const unsigned int snap      = 32;       /* snap pixel */
@@ -14,16 +14,21 @@ static const int vertpadbar         = 10;       /* vertical padding for statusba
 static const int win_name_cent      = 1;        /* 1 means window name is centered */
 
 static const int focusonwheel       = 0;
-/* fonts */
-/* static const char *fonts[]          = { "monospace:size=10" }; */
-static const char *fonts[]          = { "mononoki Nerd Font:size=10" };
+
+/* -------------- Font -------------- */
+static const char *fonts[]          = { "monospace:size=10" };
+/* static const char *fonts[]          = { "mononoki Nerd Font:size=10" }; */
 /* static const char *fonts[]          = { "Fira Code:size=11" }; */
+/* ---------------------------------- */
 
-/* themes */
-#include "/home/ekickx/.cache/wal/colors-wal-dwm.h"
+/* -------------- Theme ------------- */
+/* #include "/home/ekickx/.cache/wal/colors-wal-dwm.h" */
+#include "themes/dark/gunsmoke.h"
+/* ---------------------------------- */
 
-/* tagging */
-static const char *tags[] = { "1", "2", "3", "4", "5" };
+/* -------------- Tagging ------------*/
+static const char *tags[] = { "", "", "", "", "" };
+/* ---------------------------------- */
 
 static const Rule rules[] = {
 	/* xprop(1):
@@ -45,9 +50,9 @@ static const int resizehints = 1;    /* 1 means respect size hints in tiled resi
 
 static const Layout layouts[] = {
 	/* symbol     arrange function */
-	{ "",      NULL },    /* no layout function means floating behavior */
-  { "",      tile },    /* first entry is default */
-	{ "",      monocle },
+	{ "FLOAT",      NULL },    /* no layout function means floating behavior */
+  { "TILE",      tile },    /* first entry is default */
+	{ "MONOCLE",      monocle },
 };
 
 /* key definitions */

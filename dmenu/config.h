@@ -8,13 +8,14 @@ static const char *prompt      = NULL;      /* -p  option; prompt to the left of
 /* ------------- Font -------------- */
 /* -fn option overrides fonts[0]; default X11 font or font set */
 static const char *fonts[] = {
-  "mononoki Nerd Font:size=10"
-  /* "monospace:size=10" */
+  /* "mononoki Nerd Font:size=10" */
+  "monospace:size=10"
 };
 /* -------------------------------- */
 
 /* ------------- Theme ------------ */
-#include "/home/ekickx/.cache/wal/colors-wal-dmenu.h"
+/* #include "/home/ekickx/.cache/wal/colors-wal-dmenu.h" */
+#include "themes/dark/gunsmoke.h"
 /* -------------------------------- */
 
 /* -l option; if nonzero, dmenu uses vertical list with given number of lines */

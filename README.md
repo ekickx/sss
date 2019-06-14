@@ -41,3 +41,11 @@ Collection of modified suckless tools
 - Hide tab bar if only one tab is open - patch: **autohide**
 
 - Spawn new tab on the right instead of on the left
+
+## TODO
+
+- [ ] Fix issue when window get fullscreen and maximized
+
+- [ ] Add Pacth to remove unwanted patch. Incase you think some of my patches are bloat
+
+- [ ] Add patch to swap theme in st

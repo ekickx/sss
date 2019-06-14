@@ -3,11 +3,13 @@
 /* ------------ Appearance ------------ */
 
 /* --------------- Font --------------- */
-static const char font[] = "Fira Code:Regular:size=11:antialias=true:autohint=true";
+/* static const char font[] = "Fira Code:Regular:size=11:antialias=true:autohint=true"; */
+static char font[] = "monospace:pixelsize=13:antialias=true:autohint=true";
 /* ------------------------------------ */
 
 /* --------------- Theme -------------- */
-#include "/home/ekickx/.cache/wal/colors-wal-tabbed.h"
+/* #include "/home/ekickx/.cache/wal/colors-wal-tabbed.h" */
+#include "themes/gunsmoke-dark.h"
 /* ------------------------------------ */
 
 static const char before[]      = "<";

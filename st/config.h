@@ -1,16 +1,18 @@
 /* -------------- Font --------------- */
-/* static char *font = "monospace:pixelsize=13:antialias=true:autohint=true"; */
-static char *font = "Fira Code:Regular:pixelsize=15:antialias=true:autohint=true";
+static char *font = "monospace:pixelsize=13:antialias=true:autohint=true";
+/* static char *font = "Fira Code:Regular:pixelsize=15:antialias=true:autohint=true"; */
 
 /* Spare fonts */
 static char *font2[] = {
-/*	"Inconsolata for Powerline:pixelsize=12:antialias=true:autohint=true", */
-	"mononoki Nerd Font:Regular:pixelsize=15:antialias=true:autohint=true",
+  /* "Inconsolata for Powerline:pixelsize=12:antialias=true:autohint=true", */
+	/* "mononoki Nerd Font:Regular:pixelsize=15:antialias=true:autohint=true", */
+
 };
 /* ----------------------------------- */
 
 /* -------------- Theme ------------- */
-#include "/home/ekickx/.cache/wal/colors-wal-st.h"
+/* #include "/home/ekickx/.cache/wal/colors-wal-st.h" */
+#include "themes/gunsmoke-dark.h"
 /* ----------------------------------- */
 
 /* ----- Insternal border/padding ---- */
