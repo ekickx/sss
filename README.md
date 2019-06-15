@@ -14,7 +14,7 @@ Collection of modified suckless tools
 
 - Autostart file - patch: **autostart**
 
-- Round corner - patch: **rounded corner** by  [Mitch Weaver](github.com/MitchWeaver) with some modification
+- Round corner - patch: **rounded corner** by  [Mitch Weaver](https://github.com/MitchWeaver) with some modification
 
 - Set padding to dwmstatus - pacth: **statuspadding**
 
@@ -44,8 +44,16 @@ Collection of modified suckless tools
 
 ## TODO
 
-- [ ] Fix issue when window get fullscreen and maximized
+- [ ] Fix rounded corner issue when window is fullscreen and maximized
 
 - [ ] Add Pacth to remove unwanted patch. Incase you think some of my patches are bloat
 
 - [ ] Add patch to swap theme in st
+
+
+
+
+
+
+
+
