@@ -18,6 +18,8 @@ Collection of modified suckless tools
 
 - Set padding to dwmstatus - pacth: **statuspadding**
 
+- EWMH compatible - patch : **ewmhtags**
+
 ### St
 
 - Open or copy URL in terminal with dmenu - patch: **externalpipe**
@@ -49,11 +51,3 @@ Collection of modified suckless tools
 - [ ] Add Pacth to remove unwanted patch. Incase you think some of my patches are bloat
 
 - [ ] Add patch to swap theme in st
-
-
-
-
-
-
-
-
