@@ -12,7 +12,7 @@ static char *font2[] = {
 
 /* -------------- Theme ------------- */
 /* #include "/home/ekickx/.cache/wal/colors-wal-st.h" */
-#include "themes/gunsmoke-dark.h"
+#include "themes/dark/gunsmoke.h"
 /* ----------------------------------- */
 
 /* ----- Insternal border/padding ---- */

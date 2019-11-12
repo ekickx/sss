@@ -10,7 +10,7 @@ static const char font[] = "monospace:pixelsize=13:antialias=true:autohint=true"
 
 /* --------------- Theme -------------- */
 /* #include "/home/ekickx/.cache/wal/colors-wal-tabbed.h" */
-#include "themes/gunsmoke-dark.h"
+#include "themes/dark/gunsmoke.h"
 /* ------------------------------------ */
 
 static const char before[]      = "<";
