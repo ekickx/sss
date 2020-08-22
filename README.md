@@ -26,11 +26,15 @@ Collection of modified suckless tools
 
 - Use multiple font - patch: **font2**
 
-- Scroll back through terminal output using Shift+{PageUp, PageDown} - pacth: **scrollback**
+- Scroll back through terminal output using Shift+{PageUp, PageDown} - patch: **scrollback**
 
 - Scroll back through terminal using mouse whell - patch: **scrollback-mouse**
 
-- Vertically center line - path: **vertcenter**
+- Proper drawing of ligatures - patch: **ligatures**
+
+- Change color scheme on the fly - patch: **"OSC 10, 11, 12"**
+
+- Vertically center line - patch: **vertcenter**
 
 ### Dmenu
 
